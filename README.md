@@ -122,31 +122,3 @@ DEF_TASKS: the default daily tasks.
 CICADA_COST and CICADA_MAX: shop pricing and the Cicada cap.
 Daily tasks, goals, name and start date can also be edited in the app under the Sect tab.
 
-Building a real APK
-The app is a web page, so it works as an installable web app as-is. To get an .apk, wrap it:
-
-Option 1: PWABuilder (easiest). Host the page at a public URL, open pwabuilder.com, enter the URL, and choose the Android package. Note that PWABuilder works best when the site provides a web app manifest and service worker, so you may need to add those first.
-
-Option 2: Capacitor. You need Node.js and Android Studio.
-
-mkdir winter-arc && cd winter-arc
-npm init -y
-npm install @capacitor/core @capacitor/cli @capacitor/android
-npx cap init "Winter Arc" com.example.winterarc --web-dir=www
-mkdir www && cp /path/to/winter-arc-cultivation.html www/index.html
-npx cap add android
-npx cap sync
-npx cap open android
-Then build and run from Android Studio (Build, then Build APK). The web-view keeps localStorage, so progress persists inside the app.
-
-Project structure
-winter-arc-cultivation.html   The whole app (HTML, CSS, JS)
-README.md                     This file
-Known limitations
-Fonts (IM Fell English, Hanken Grotesk, a small Noto Serif SC subset) load from Google Fonts. Offline, the app falls back to system fonts.
-There are no push notifications or reminders.
-Progress is per browser and per device, with no cloud sync.
-The date logic uses your device's local date. Changing the start date after starting shifts which calendar days map to which arc days.
-Credits
-Reverend Insanity (蛊真人) by Gu Zhen Ren, the source of the setting, ranks, and terms.
-Fonts: IM Fell English, Hanken Grotesk and Noto Serif SC via Google Fonts.
