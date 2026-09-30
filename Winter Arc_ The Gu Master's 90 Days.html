@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b100f">
+<meta name="color-scheme" content="dark">
+<title>Winter Arc: The Gu Master's 90 Days</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&text=%E8%9B%8A%E7%9C%9F%E4%BA%BA%E5%9C%86%E6%BB%A1%E6%98%A5%E7%A7%8B%E8%9D%89%E5%86%AC">
+<style>
+:root{
+  --ink:#0b100f; --ink2:#111917; --ink3:#16201d; --well:#080c0b; --line:#24302c;
+  --bone:#ebe6d4; --dim:#8d9993; --gold:#d8b45a; --blood:#c2453c;
+  --essence:#62b58a;
+  --serif:'IM Fell English','Iowan Old Style',Georgia,serif;
+  --sans:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --cjk:'Noto Serif SC','Songti SC','Noto Serif CJK SC',serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--ink);color:var(--bone);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(120% 55% at 50% -8%,#182823 0%,transparent 62%),radial-gradient(90% 40% at 100% 100%,#1a1414 0%,transparent 70%)}
+.mtn{position:fixed;left:0;right:0;bottom:0;width:100%;height:38vh;z-index:0;pointer-events:none;opacity:.9}
+button,input,textarea,select{font:inherit;color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;letter-spacing:.01em}
+#app{position:relative;z-index:1;max-width:600px;margin:0 auto;padding:16px 16px 100px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:19px}
+.mark{width:32px;height:32px;display:grid;place-items:center;background:var(--blood);color:#fbeeea;font-family:var(--cjk);font-weight:700;font-size:19px;border-radius:3px;transform:rotate(-5deg);box-shadow:0 0 0 2px rgba(194,69,60,.25)}
+.stones{color:var(--gold);font-size:14px;border:1px solid #4a3f22;border-radius:20px;padding:3px 11px}
+.hero{position:relative;text-align:center}
+.hero svg.orb{width:min(80vw,310px);height:auto;display:block;margin:0 auto}
+.seal{position:absolute;right:2px;top:20px;width:46px;height:46px;background:var(--blood);color:#fbeeea;font-family:var(--cjk);font-weight:700;font-size:17px;line-height:1.05;display:grid;place-items:center;text-align:center;border-radius:3px;transform:rotate(7deg);animation:stamp .5s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes stamp{from{transform:rotate(7deg) scale(2.2);opacity:0}to{transform:rotate(7deg) scale(1);opacity:1}}
+.rank{font-family:var(--serif);font-size:27px;line-height:1.15;margin-top:4px;color:var(--essence);transition:color .6s}
+.sub{color:var(--dim);font-size:14px;margin-top:3px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);margin:18px 0 6px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{padding:11px 4px;text-align:center}
+.stat+.stat{border-left:1px solid var(--line)}
+.stat b{display:block;font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.1}
+.stat span{color:var(--dim);font-size:12px}
+.maxim{font-family:var(--serif);font-style:italic;color:#cdc7b0;text-align:center;margin:20px 8px 6px;font-size:18px;line-height:1.45}
+.maxim small{display:block;font-family:var(--sans);font-style:normal;color:var(--dim);font-size:12px;margin-top:4px}
+.note{border-left:2px solid var(--blood);padding:7px 12px;color:#dcb9b3;font-size:14px;margin:12px 0;background:rgba(194,69,60,.06)}
+.note.good{border-color:var(--essence);color:#bfe0cc;background:color-mix(in srgb,var(--essence) 7%,transparent)}
+.note.gold{border-color:var(--gold);color:#efdca6;background:rgba(216,180,90,.07)}
+.note .row{margin-top:8px}
+.sec{margin:26px 0 10px;font-size:22px;display:flex;align-items:baseline;gap:10px}
+.sec::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.sec small{font-family:var(--sans);font-size:13px;color:var(--dim)}
+.task{position:relative;display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 12px 12px 14px;margin-bottom:8px;border:1px solid var(--line);border-left:3px solid var(--pc,var(--line));border-radius:3px 12px 12px 3px;background:var(--ink2);cursor:pointer;transition:background .25s,border-color .25s,transform .1s}
+.task:active{transform:scale(.99)}
+.task[disabled]{opacity:.5;cursor:default}
+.task .box{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--dim);display:grid;place-items:center;transition:all .25s}
+.task .nm{flex:1;line-height:1.35}
+.task .nm small{display:block;color:var(--pc,var(--dim));font-size:12px;margin-top:1px}
+.task .xp{color:var(--dim);font-size:13px;white-space:nowrap}
+.task.on{background:color-mix(in srgb,var(--pc,#62b58a) 11%,var(--ink2));border-color:color-mix(in srgb,var(--pc,#62b58a) 55%,var(--line));border-left-color:var(--pc,var(--essence))}
+.task.on .box{background:var(--pc,var(--essence));border-color:var(--pc,var(--essence))}
+.task.on .box::after{content:"";width:6px;height:12px;border:solid #07100b;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.task.on .nm{color:#dbe9df}
+.task.bonus .xp::before{content:"+50% ";color:var(--gold)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.nav{position:fixed;left:0;right:0;bottom:0;background:rgba(9,13,12,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+.nav div{display:flex;max-width:600px;margin:0 auto}
+.nav button{flex:1;background:none;border:0;padding:13px 2px 12px;color:var(--dim);font-size:15px;cursor:pointer;font-family:var(--serif);position:relative}
+.nav button.on{color:var(--gold)}
+.nav button.on::before{content:"";position:absolute;top:0;left:30%;right:30%;height:2px;background:var(--gold)}
+.btn{background:var(--essence);color:#06100a;border:0;border-radius:4px 12px 4px 12px;padding:12px 18px;font-weight:600;cursor:pointer}
+.btn.ghost{background:none;color:var(--bone);border:1px solid var(--line)}
+.btn.warn{background:none;color:#e58a83;border:1px solid #5a2a27}
+.btn.gold{background:var(--gold);color:#1a1405}
+.btn.sm{padding:8px 13px;font-size:14px}
+.btn[disabled]{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.rowg{margin:8px 0 14px}
+.rows{display:flex;flex-direction:column;gap:14px}
+.rrow{display:grid;grid-template-columns:30px 1fr;gap:6px;align-items:center}
+.rl{font-family:var(--serif);font-size:15px;text-align:center}
+.cells{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.cell{aspect-ratio:1;border-radius:4px;border:1px solid var(--line);background:var(--ink2);color:var(--dim);font-size:11px;display:grid;place-items:center;cursor:pointer;padding:0}
+.cell.today{border-color:var(--gold);color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.cell.fut{opacity:.4}
+.cell.lit{color:#06100a;font-weight:600}
+.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--dim);font-size:13px;margin:14px 0 4px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.rk{border:1px solid var(--line);border-radius:4px 14px 4px 14px;margin-bottom:10px;background:var(--ink2);overflow:hidden}
+.rk summary{list-style:none;cursor:pointer;padding:14px;display:flex;align-items:center;gap:12px}
+.rk summary::-webkit-details-marker{display:none}
+.rk .dot{width:14px;height:14px;border-radius:50%;flex:none;box-shadow:0 0 12px var(--c)}
+.rk h3{font-size:19px;flex:1;line-height:1.2}
+.rk h3 small{display:block;font-family:var(--sans);font-size:12.5px;color:var(--dim);margin-top:1px}
+.rk .st{color:var(--dim);font-size:13px}
+.lore{padding:0 14px 12px;color:#b9b39e;font-size:14.5px;font-style:italic;font-family:var(--serif)}
+.lv{display:flex;justify-content:space-between;padding:8px 14px;border-top:1px solid var(--line);font-size:14px;color:var(--dim)}
+.lv.cur{color:var(--bone);background:rgba(216,180,90,.09)}
+.lv.past{color:#5f6e67}
+.trib{padding:13px 14px;border-top:1px solid var(--line);font-size:14.5px;background:rgba(216,180,90,.04)}
+.trib .t{font-family:var(--serif);font-size:17px;color:var(--gold);margin-bottom:3px}
+.dao{border:1px solid var(--line);border-left:3px solid var(--pc);border-radius:3px 12px 12px 3px;padding:12px 14px;margin-bottom:9px;background:var(--ink2)}
+.dao h3{font-size:18px;display:flex;justify-content:space-between;gap:10px}
+.dao h3 span{font-family:var(--sans);font-size:13px;color:var(--pc)}
+.dao p{margin:2px 0 8px;color:var(--dim);font-size:13.5px}
+.bar{height:6px;border-radius:3px;background:var(--well);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--pc);border-radius:3px;transition:width .6s}
+.dao small{color:var(--dim);font-size:12px}
+label.f{display:block;margin:15px 0 5px;color:var(--dim);font-size:14px}
+input[type=text],input[type=date],input[type=number],textarea,select{width:100%;background:var(--well);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+textarea{min-height:70px;resize:vertical}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--dim) 50%),linear-gradient(135deg,var(--dim) 50%,transparent 50%);background-position:calc(100% - 17px) 55%,calc(100% - 12px) 55%;background-size:5px 5px;background-repeat:no-repeat;padding-right:30px}
+.trow{display:grid;grid-template-columns:1fr 64px 40px;gap:8px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.trow .tn{grid-column:1/-1}
+.trow .x{background:none;border:1px solid var(--line);border-radius:6px;color:#e58a83;cursor:pointer}
+.choices{display:grid;gap:8px}
+.choice{display:block;width:100%;text-align:left;background:var(--ink2);border:1px solid var(--line);border-radius:4px 12px 12px 4px;padding:11px 14px;cursor:pointer}
+.choice b{font-family:var(--serif);font-weight:400;font-size:18px;display:block}
+.choice span{color:var(--dim);font-size:13.5px}
+.choice.sel{border-color:var(--gold);background:rgba(216,180,90,.09)}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:10;display:flex;align-items:flex-end;justify-content:center}
+.sheet>div{width:100%;max-width:600px;max-height:88%;overflow:auto;background:var(--ink);border:1px solid var(--line);border-radius:18px 18px 0 0;padding:18px 16px calc(24px + env(safe-area-inset-bottom,0px))}
+.toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translate(-50%,-160%);background:var(--gold);color:#1a1405;padding:11px 18px;border-radius:12px;font-family:var(--serif);font-size:18px;z-index:40;transition:transform .4s;max-width:90%;text-align:center}
+.toast.show{transform:translate(-50%,0)}
+.ov{position:fixed;inset:0;z-index:30;background:radial-gradient(circle at 50% 42%,color-mix(in srgb,var(--essence) 22%,#050807) 0%,rgba(5,8,7,.97) 62%);display:grid;place-items:center;text-align:center;padding:26px;overflow:hidden}
+.ov .ring{position:absolute;left:50%;top:42%;width:200px;height:200px;margin:-100px 0 0 -100px;border-radius:50%;border:2px solid var(--essence);animation:pulse 1.6s ease-out both}
+.ov .ring.b{animation-delay:.35s}
+@keyframes pulse{from{transform:scale(.2);opacity:1}to{transform:scale(5);opacity:0}}
+.ovt{position:relative;animation:rise .9s .25s both}
+@keyframes rise{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+.ovh{font-family:var(--serif);font-size:38px;line-height:1.1;color:var(--essence)}
+.ovs{font-family:var(--serif);font-size:20px;margin-top:8px}
+.ov p{color:#bdb7a2;font-style:italic;font-family:var(--serif);font-size:17px;max-width:420px;margin:14px auto 22px}
+.wv1{animation:drift 7s linear infinite}
+.wv2{animation:drift 11s linear infinite reverse}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-82px)}}
+.intro{padding-top:22px}
+.intro .glyph{font-family:var(--cjk);font-weight:700;font-size:58px;line-height:1;color:var(--blood);letter-spacing:.08em;opacity:.9}
+.intro h1{font-size:36px;line-height:1.08;margin:10px 0 10px}
+.intro p{color:#b9b39e}
+.muted{color:var(--dim);font-size:13.5px}
+.fine{color:#5f6d66;font-size:12.5px;margin-top:26px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<svg class="mtn" viewBox="0 0 800 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+  <path d="M0 300V190L70 120L120 170L200 70L270 160L330 110L420 200L500 90L590 170L650 120L730 190L800 140V300Z" fill="#0f1816" opacity=".85"/>
+  <path d="M0 300V235L90 185L160 225L260 150L350 230L450 175L560 240L660 190L740 230L800 205V300Z" fill="#0c1311"/>
+</svg>
+<div id="app"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="sheetHost"></div>
+<div id="ovHost"></div>
+
+<script>
+/* =====================  NOVEL DATA  ===================== */
+/* Ranks 1-5: Gu Masters (primeval essence). Ranks 6-9: Gu Immortals (immortal essence). */
+const RANKS=[
+ {k:'Gu Master',es:'Green Copper primeval essence',c:'#62b58a',
+  lore:'You have opened your aperture and green copper essence fills the primeval sea. Every Gu Master begins here.',
+  tn:'Beast Tide of Qing Mao Mountain',
+  td:'A full day of survival. Hit 100% of your daily tasks, no junk food, no scrolling, and be in bed on time.'},
+ {k:'Gu Master',es:'Red Steel primeval essence',c:'#cf5147',
+  lore:'Red steel essence flows. Most clan Gu Masters never climb much higher than this.',
+  tn:"The Flower Wine Monk's Inheritance",
+  td:'Find your hidden treasure: finish one real deliverable toward your main goal (a project, a chapter, a personal record).'},
+ {k:'Gu Master',es:'White Silver primeval essence',c:'#dfe4e8',
+  lore:'White silver essence. At rank three you are eligible to sit among the clan elders.',
+  tn:'The Elder Assessment',
+  td:'Prove yourself with a benchmark: a timed run, a test, a max lift. Write down the number so you can beat it.'},
+ {k:'Gu Master',es:'Yellow Gold primeval essence',c:'#e5bc4e',
+  lore:'Yellow gold essence. Few Gu Masters in any lifetime reach this height.',
+  tn:'The Road to Overlord',
+  td:'One uninterrupted 4-hour deep work block on your main goal. Phone in another room.'},
+ {k:'Gu Master',es:'Purple Crystal primeval essence',c:'#a97be0',
+  lore:'Purple crystal essence, the summit of mortal cultivation. Rank five Gu Masters rule whole regions.',
+  tn:'Immortal Ascension: Earthly Calamity',
+  td:'Face the task you fear most, first thing in the morning, then finish with 10 minutes of cold exposure.'},
+ {k:'Gu Immortal',es:'Green Grape immortal essence',c:'#86c85a',
+  lore:'You have ascended. Green grape immortal essence flows and a blessed land forms within your aperture.',
+  tn:'Heavenly Tribulation',
+  td:'A 48-hour dopamine fast: no entertainment, no social media, no sugar. Only work, training, reading and rest.'},
+ {k:'Gu Immortal',es:'Red Date immortal essence',c:'#d1384b',
+  lore:'Red date immortal essence, worth a hundred beads of the last. Your blessed land deepens.',
+  tn:'Grand Tribulation',
+  td:'Teach someone what you have learned this arc, or publish a real result for others to see.'},
+ {k:'Gu Immortal',es:'White Litchi immortal essence',c:'#f3dcd5',
+  lore:'White litchi immortal essence. Your blessed land has become a grotto-heaven.',
+  tn:'Myriad Tribulation',
+  td:'A hard physical event: a long run, a heavy session, a personal best. Pay the price fully.'},
+ {k:'Gu Immortal',es:'Yellow Apricot immortal essence',c:'#f6a13c',
+  lore:'Rank nine, the summit of the world. Across all recorded history only ten Venerables have stood here.',
+  tn:'Chaos Tribulation: The Eternal Life Trial',
+  td:'Write your 90-day retrospective: what you gained, what it cost, and the plan for your next arc.'}
+];
+const STAGES=['Initial','Middle','Upper','Peak'];
+const STAGE_LORE=[
+ 'The aperture walls are fresh. Nourish them.',
+ 'Primeval essence grows denser. Keep nourishing the walls.',
+ 'The walls are thin and glowing. Do not let up now.',
+ 'The walls can be refined no further. Break them.'
+];
+const APT={
+ D:{t:50,cic:4,n:'Grade D',d:'A gentler start. A day clears at 50% and you begin with 4 Cicada charges.'},
+ C:{t:60,cic:3,n:'Grade C',d:"Fang Yuan's own grade. A day clears at 60% and you begin with 3 Cicada charges."},
+ B:{t:70,cic:3,n:'Grade B',d:'Talented, and expected to prove it. A day clears at 70%. 3 Cicada charges.'},
+ A:{t:85,cic:2,n:'Grade A',d:'The clan expects everything of you. A day clears at 85%. Only 2 Cicada charges.'}
+};
+const VITAL={
+ liquor:{n:'Liquor Worm',d:'Refines your essence. A perfect 100% day yields +10 bonus essence.'},
+ moon:{n:'Moonlight Gu',d:'An attack Gu. Your heaviest task yields 50% more essence.'},
+ jade:{n:'Jade Skin Gu',d:'A defensive Gu. A day 20 points under your clear line still keeps your streak alive.'}
+};
+const PATHS={
+ strength:{n:'Strength Path',c:'#e0774f',d:'Might of the body. Every rep leaves a mark.'},
+ wisdom:{n:'Wisdom Path',c:'#7fa9e6',d:'Clear thinking and long focus.'},
+ information:{n:'Information Path',c:'#b894ea',d:'Knowledge gathered and kept.'},
+ food:{n:'Food Path',c:'#d1a95c',d:'Mastery over appetite and craving.'},
+ ice:{n:'Ice-Snow Path',c:'#90d9ea',d:'Cold that tempers. Made for winter.'},
+ moon:{n:'Moon Path',c:'#dcd6b4',d:'Quiet reflection and honest records.'},
+ dream:{n:'Dream Path',c:'#9186e6',d:'Sleep and recovery.'},
+ time:{n:'Time Path',c:'#62b58a',d:"Planning ahead, the path of the Spring Autumn Cicada."}
+};
+const MAXIMS=[
+ 'Mercy is a luxury spent by those who can afford to lose.',
+ 'A cold plan followed daily beats a hot vow made once.',
+ 'Do not ask if today is hard. Ask what it is buying.',
+ 'Every skipped day is a debt, and time collects with interest.',
+ 'The strong do not wait to feel ready. They calculate and begin.',
+ 'Comfort is the gentlest poison. It tastes like rest.',
+ 'Cultivation is theft from tomorrow. Steal early and steal often.',
+ 'Regret is a tool for those who have not yet acted.',
+ 'One clean day is a small win. Ninety is a different person.',
+ 'Winter does not negotiate. Neither should you.',
+ 'Without eternity, a summit is only a taller grave.',
+ 'Resources gathered in silence cannot be taken in public.',
+ 'Sentiment is a debt the world collects in your worst hour.',
+ 'Feed the aperture daily. A starved sea grows no walls.',
+ 'Heaven has its will. You have a schedule.',
+ 'Patience is not softness. It is a blade kept in the sheath.'
+];
+const DEF_TASKS=[
+ {id:'t1',name:'Temper the body: train 45+ minutes',w:3,p:'strength'},
+ {id:'t2',name:'Sharpen the mind: 2 hours deep work on your main goal',w:4,p:'wisdom'},
+ {id:'t3',name:'Devour knowledge: read or study 30 minutes',w:2,p:'information'},
+ {id:'t4',name:'Seal the desires: no junk food, no doomscrolling',w:2,p:'food'},
+ {id:'t5',name:'Frost tempering: cold shower',w:1,p:'ice'},
+ {id:'t6',name:'Record the day: journal and plan tomorrow',w:1,p:'moon'},
+ {id:'t7',name:'Rest the aperture: 7+ hours of sleep',w:2,p:'dream'}
+];
+const CICADA_COST=150, CICADA_MAX=5;
+const KEY='winterarc_gu_v2', OLDKEY='winterarc_gu_v1';
+
+/* =====================  STATE  ===================== */
+let mem=null;
+function defaults(){return {name:'',start:null,goals:['','',''],apt:'C',vital:'liquor',tasks:JSON.parse(JSON.stringify(DEF_TASKS)),done:{},pct:{},score:{},notes:{},unlocked:{},cicada:3,tribs:{},spent:0};}
+function load(){
+  try{
+    let r=localStorage.getItem(KEY); if(r) return JSON.parse(r);
+    r=localStorage.getItem(OLDKEY);
+    if(r){
+      const o=JSON.parse(r), P={t1:'strength',t2:'wisdom',t3:'information',t4:'food',t5:'ice',t6:'moon',t7:'dream'};
+      o.tasks=(o.tasks||[]).map(t=>({...t,p:t.p||P[t.id]||'wisdom'}));
+      return o;
+    }
+  }catch(e){}
+  return mem;
+}
+function save(){
+  mem=JSON.parse(JSON.stringify(S));
+  try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}
+}
+let S=Object.assign(defaults(),load()||{});
+let tab='today', draft={apt:'C',vital:'liquor'};
+
+/* =====================  HELPERS  ===================== */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=d=>d.toLocaleDateString('en-CA');
+const todayStr=()=>fmt(new Date());
+const utc=s=>{const [y,m,d]=s.split('-').map(Number);return Date.UTC(y,m-1,d)};
+const dayNumOf=ds=>Math.round((utc(ds)-utc(S.start))/864e5)+1;
+const dateOfDay=n=>new Date(utc(S.start)+(n-1)*864e5).toISOString().slice(0,10);
+const dayNum=()=>dayNumOf(todayStr());
+const thr=()=>APT[S.apt].t;
+const streakThr=()=>Math.max(30,thr()-(S.vital==='jade'?20:0));
+const totalW=()=>S.tasks.reduce((a,t)=>a+t.w,0)||1;
+function heavyId(){let m=null;S.tasks.forEach(t=>{if(!m||t.w>m.w)m=t});return m&&m.id;}
+
+function calc(date){
+  const tw=totalW(), ids=S.done[date]||[], hv=heavyId();
+  let base=0,bonus=0;
+  S.tasks.forEach(t=>{ if(ids.includes(t.id)){ base+=t.w; if(S.vital==='moon'&&t.id===hv) bonus+=t.w*.5; } });
+  const pct=Math.round(base/tw*100);
+  let ess=(base+bonus)/tw*100;
+  if(S.vital==='liquor'&&pct===100) ess+=10;
+  return {pct,ess:Math.round(ess)};
+}
+function recalc(date){const r=calc(date);S.pct[date]=r.pct;S.score[date]=r.ess;}
+Object.keys(S.done).forEach(recalc);
+
+function xpParts(){
+  const scores=Object.values(S.score).reduce((a,b)=>a+b,0);
+  const tribs=Object.values(S.tribs).filter(Boolean).length;
+  return {scores,tribs,total:scores+tribs*100};
+}
+function levelNow(){
+  const xp=xpParts().total;
+  let lv=Math.min(90,Math.floor(xp/100)+1), blocked=false;
+  for(let r=1;r<=9;r++){ if(lv>r*10 && !S.tribs[r]){lv=r*10;blocked=true;break;} }
+  if(lv>=90 && !S.tribs[9]) blocked=true;
+  return {lv,blocked,xp,asc:!!S.tribs[9]&&xp>=8900};
+}
+const stones=()=>Math.floor(xpParts().scores/10)+Object.values(S.tribs).filter(Boolean).length*50-S.spent;
+function info(lv){
+  const r=Math.ceil(lv/10), pos=(lv-1)%10+1;
+  const si=pos<=3?0:pos<=6?1:pos<=9?2:3, R=RANKS[r-1];
+  return {r,pos,si,stage:STAGES[si],R,title:`Rank ${r} ${R.k}, ${STAGES[si]} Stage`};
+}
+function streak(){
+  let n=0,d=Math.min(dayNum(),90);
+  if(d<1) return 0;
+  if((S.pct[dateOfDay(d)]||0)<streakThr()) d--;
+  for(;d>=1;d--){ if((S.pct[dateOfDay(d)]||0)>=streakThr()) n++; else break; }
+  return n;
+}
+function editable(date){
+  if(!S.start) return false;
+  if(date===todayStr()){const n=dayNumOf(date);return n>=1&&n<=90;}
+  return !!S.unlocked[date];
+}
+function toast(msg){
+  const t=$('#toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toast.h); toast.h=setTimeout(()=>t.classList.remove('show'),3200);
+}
+function maximOfDay(){const n=S.start?Math.max(1,dayNum()):1;return MAXIMS[(n+(S.name||'').length)%MAXIMS.length];}
+function daoCounts(){
+  const c={}; Object.keys(PATHS).forEach(k=>c[k]=0);
+  const byId={}; S.tasks.forEach(t=>byId[t.id]=t.p);
+  Object.values(S.done).forEach(ids=>ids.forEach(id=>{const p=byId[id]; if(p&&c[p]!==undefined) c[p]++;}));
+  return c;
+}
+function attain(n){return n>=70?['Supreme Grandmaster',90]:n>=40?['Grandmaster',70]:n>=15?['Master',40]:n>=1?['Novice',15]:['Unawakened',1];}
+
+/* =====================  VIEWS  ===================== */
+function wavePath(){
+  let d='M-70 0';
+  for(let x=-70;x<=310;x+=6){ d+=` L${x} ${(4.5*Math.sin(x/82*2*Math.PI)).toFixed(2)}`; }
+  return d+' L310 200 L-70 200 Z';
+}
+function orb(){
+  const {lv,xp,blocked,asc}=levelNow(), i=info(lv), c=i.R.c, dn=dayNum();
+  const p=asc?1:(blocked&&lv%10===0)?1:(xp%100)/100;
+  let ticks='';
+  for(let k=1;k<=90;k++){
+    const a=((k-1)*4-90)*Math.PI/180;
+    const x1=110+93*Math.cos(a),y1=110+93*Math.sin(a),x2=110+104*Math.cos(a),y2=110+104*Math.sin(a);
+    const pc=S.pct[dateOfDay(k)]||0;
+    let col='#22302b',w=1.6;
+    if(k<=dn) col= pc>=thr()?c : pc>0?'#7a6535':'#4d2724';
+    if(k===dn){col='#d8b45a';w=3.2;}
+    ticks+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`;
+  }
+  const top=28+164*(1-p), wp=wavePath();
+  return `<svg class="orb" viewBox="0 0 220 220" role="img" aria-label="Aperture at level ${lv} of 90">
+   <defs><clipPath id="ap"><circle cx="110" cy="110" r="82"/></clipPath>
+   <radialGradient id="gl" cx="50%" cy="50%" r="50%"><stop offset="60%" stop-color="${c}" stop-opacity="0"/><stop offset="100%" stop-color="${c}" stop-opacity=".22"/></radialGradient></defs>
+   <circle cx="110" cy="110" r="90" fill="url(#gl)"/>
+   ${ticks}
+   <circle cx="110" cy="110" r="82" fill="#070b0a" stroke="#2a3833" stroke-width="1.5"/>
+   <g clip-path="url(#ap)">
+     <g style="transform:translateY(${(top+5).toFixed(1)}px);transition:transform 1s"><g class="wv2"><path d="${wp}" fill="${c}" opacity=".32"/></g></g>
+     <g style="transform:translateY(${top.toFixed(1)}px);transition:transform 1s"><g class="wv1"><path d="${wp}" fill="${c}" opacity=".72"/></g></g>
+     <text x="110" y="128" text-anchor="middle" font-family="Noto Serif SC, serif" font-weight="700" font-size="100" fill="#000" opacity=".16">蛊</text>
+   </g>
+   <circle cx="110" cy="110" r="82" fill="none" stroke="${c}" stroke-opacity=".5" stroke-width="1"/>
+   <text x="110" y="122" text-anchor="middle" font-family="IM Fell English, Georgia, serif" font-size="58" fill="#f5f1e2" stroke="#070b0a" stroke-width="4" paint-order="stroke">${lv}</text>
+   <text x="110" y="145" text-anchor="middle" font-family="Hanken Grotesk, sans-serif" font-size="11" fill="#f5f1e2" stroke="#070b0a" stroke-width="3" paint-order="stroke">of 90</text>
+  </svg>`;
+}
+function taskList(date){
+  const ed=editable(date), ids=S.done[date]||[], tw=totalW(), hv=heavyId();
+  return S.tasks.map(t=>{
+    const P=PATHS[t.p]||PATHS.wisdom, on=ids.includes(t.id);
+    const xp=Math.round(t.w/tw*100*(S.vital==='moon'&&t.id===hv?1.5:1));
+    return `<button class="task ${on?'on':''} ${S.vital==='moon'&&t.id===hv?'bonus':''}" style="--pc:${P.c}" data-a="toggle" data-d="${date}" data-id="${t.id}" ${ed?'':'disabled'} aria-pressed="${on}">
+      <span class="box"></span><span class="nm">${esc(t.name)}<small>${P.n}</small></span><span class="xp">${xp} xp</span></button>`;
+  }).join('');
+}
+function vToday(){
+  const L=levelNow(), {lv,blocked,xp,asc}=L, i=info(lv), dn=dayNum(), ts=todayStr();
+  document.documentElement.style.setProperty('--essence',i.R.c);
+  const before=Object.entries(S.score).filter(([d])=>d<ts).reduce((a,[,v])=>a+v,0);
+  const missed=Math.max(0,(Math.min(Math.max(dn,1),91)-1)*100-before);
+  let dayLine=dn<1?`Your arc begins on ${S.start}`:dn>90?'The 90 days have ended':`Day ${dn} of 90`;
+  let pace='';
+  if(dn>=2&&dn<=91){
+    pace=missed>=30
+     ?`<div class="note">${missed} essence lies unclaimed in past days. A Spring Autumn Cicada can rewind time and reopen one.</div>`
+     :`<div class="note good">Your cultivation is on pace. Keep the cycle unbroken.</div>`;
+  }
+  const bn=blocked&&!asc?`<div class="note gold"><b>Bottleneck.</b> Essence overflows but the aperture walls will not break. Face <i>${esc(i.R.tn)}</i> to advance.<div class="row"><button class="btn gold sm" data-a="tab" data-t="path">Go to the tribulation</button></div></div>`:'';
+  const seal=(S.pct[ts]||0)>=100?`<div class="seal" aria-label="Perfect day">圆<br>满</div>`:'';
+  const title=asc?'Eternal Life Attained':esc(i.title);
+  const goals=S.goals.filter(Boolean);
+  return `<div class="top"><div class="brand"><span class="mark">冬</span>Winter Arc</div><div class="stones" title="Primeval stones">${stones()} stones</div></div>
+   <div class="hero">${seal}${orb()}
+    <div class="rank">${title}</div>
+    <div class="sub">${S.name?esc(S.name)+', ':''}${dayLine}</div>
+    <div class="sub">${esc(i.R.es)} &middot; ${xp%100} / 100</div>
+   </div>
+   <div class="stats">
+     <div class="stat"><b>${streak()}</b><span>day streak</span></div>
+     <div class="stat"><b>${xp}</b><span>essence</span></div>
+     <div class="stat"><b>${S.pct[ts]||0}%</b><span>today</span></div>
+     <div class="stat"><b>${S.cicada}</b><span>Cicada</span></div>
+   </div>
+   ${bn}${pace}
+   <div class="maxim">&ldquo;${maximOfDay()}&rdquo;<small>Vital Gu: ${VITAL[S.vital].n} &middot; ${APT[S.apt].n}</small></div>
+   <h2 class="sec">Daily cultivation<small>clear line ${thr()}%</small></h2>
+   ${dn<1||dn>90?`<p class="muted">Tasks are active during days 1 to 90.</p>`:''}
+   ${taskList(ts)}
+   <h2 class="sec">Record of the day</h2>
+   <textarea class="jnote" data-d="${ts}" placeholder="What did you cultivate today? What held you back?" ${editable(ts)?'':'disabled'}>${esc(S.notes[ts]||'')}</textarea>
+   ${goals.length?`<h2 class="sec">Your Eternal Life</h2>${goals.map(g=>`<p style="margin:6px 0;font-family:var(--serif);font-size:19px">${esc(g)}</p>`).join('')}`:''}`;
+}
+function vPath(){
+  const {lv}=levelNow(), cur=info(lv);
+  return `<div class="top"><h2 style="font-size:30px">The Path</h2></div>
+  <p class="muted" style="margin-top:0">Nine ranks, each with four stages. Ranks 1 to 5 are mortal Gu Masters. Ranks 6 to 9 are Gu Immortals. At every Peak stage a tribulation blocks the next rank.</p>`+
+  RANKS.map((R,idx)=>{
+    const rn=idx+1, open=rn===cur.r?'open':'';
+    let rows='';
+    for(let k=1;k<=10;k++){
+      const L=(rn-1)*10+k, inf=info(L), cls=L===lv?'cur':L<lv?'past':'';
+      rows+=`<div class="lv ${cls}"><span>Level ${L}: ${inf.stage} Stage</span><span>${L<lv?'cleared':L===lv?'you are here':'Day '+L}</span></div>`;
+    }
+    const done=S.tribs[rn], can=lv>=rn*10;
+    const trib=`<div class="trib"><div class="t">Tribulation: ${esc(R.tn)}</div>${esc(R.td)}
+     <div class="row">${done?`<span class="muted">Survived. +100 essence and +50 stones gained.</span>`:can?`<button class="btn gold sm" data-a="trib" data-r="${rn}">I survived it</button>`:`<span class="muted">Unlocks when you reach Level ${rn*10}.</span>`}</div></div>`;
+    return `<details class="rk" style="--c:${R.c}" ${open}><summary><span class="dot" style="background:${R.c}"></span><h3>Rank ${rn}: ${R.k}<small>${esc(R.es)}</small></h3><span class="st">Lv ${(rn-1)*10+1} to ${rn*10}</span></summary><div class="lore">${esc(R.lore)}</div>${rows}${trib}</details>`;
+  }).join('');
+}
+function vDao(){
+  const cnt=daoCounts();
+  return `<div class="top"><h2 style="font-size:30px">Dao Marks</h2></div>
+  <p class="muted" style="margin-top:0">Every task belongs to a Dao path. Each completion leaves a Dao mark. Deepen a path and your attainment grows from Novice to Supreme Grandmaster.</p>`+
+  Object.keys(PATHS).map(k=>{
+    const P=PATHS[k], n=cnt[k], [title,next]=attain(n);
+    const pctBar=Math.min(100,Math.round(n/90*100));
+    const used=S.tasks.some(t=>t.p===k);
+    return `<div class="dao" style="--pc:${P.c};${used?'':'opacity:.55'}"><h3>${P.n}<span>${title}</span></h3><p>${P.d}</p>
+      <div class="bar"><i style="width:${pctBar}%"></i></div><small>${n} marks${n<70?` &middot; next: ${next-n} more`:' &middot; peak reached'}${used?'':' &middot; no tasks on this path yet'}</small></div>`;
+  }).join('');
+}
+function vDays(){
+  const dn=dayNum(), R=RANKS;
+  let rows='';
+  for(let r=1;r<=9;r++){
+    let cells='';
+    for(let j=1;j<=10;j++){
+      const k=(r-1)*10+j, d=dateOfDay(k), pc=S.pct[d]||0, c=R[r-1].c;
+      const lit=pc>0?`background:color-mix(in srgb,${c} ${Math.max(28,Math.min(100,pc))}%,#111917);border-color:${c}`:'';
+      cells+=`<button class="cell ${pc>0?'lit':''} ${k===dn?'today':''} ${k>dn?'fut':''}" style="${lit}" data-a="day" data-n="${k}" aria-label="Day ${k}, ${pc} percent">${k}</button>`;
+    }
+    rows+=`<div class="rrow"><span class="rl" style="color:${R[r-1].c}">${r}</span><div class="cells">${cells}</div></div>`;
+  }
+  return `<div class="top"><h2 style="font-size:30px">The 90 Days</h2></div>
+  <p class="muted" style="margin-top:0">One row per rank. The brighter the day, the more essence you gathered. Tap a day to review it or rewind it.</p>
+  <div class="rows">${rows}</div>
+  <div class="legend"><span><i style="background:var(--essence)"></i>cleared</span><span><i style="background:#7a6535"></i>partial</span><span><i style="border:1px solid var(--gold)"></i>today</span></div>
+  <p class="muted">Spring Autumn Cicada: ${S.cicada} left. Rewind time and reopen a missed day.</p>`;
+}
+function vSect(){
+  const V=VITAL[S.vital];
+  return `<div class="top"><h2 style="font-size:30px">Sect</h2><div class="stones">${stones()} stones</div></div>
+  <div class="note good">Aptitude: <b>${APT[S.apt].n}</b> &middot; Vital Gu: <b>${V.n}</b><br><span class="muted">${V.d}</span></div>
+  <h2 class="sec">Gu storage</h2>
+  <p class="muted" style="margin-top:0">Primeval stones come from cultivation: 10 stones per 100 essence, plus 50 for every tribulation survived. Spend them to refine another Spring Autumn Cicada.</p>
+  <button class="btn gold sm" data-a="buycic" ${S.cicada>=CICADA_MAX||stones()<CICADA_COST?'disabled':''}>Refine a Cicada (${CICADA_COST} stones)</button>
+  <span class="muted"> &nbsp;${S.cicada} of ${CICADA_MAX} held</span>
+  <h2 class="sec">Records</h2>
+  <label class="f" for="fname">Your name</label><input type="text" id="fname" value="${esc(S.name)}">
+  <label class="f" for="fstart">Arc start date</label><input type="date" id="fstart" value="${S.start||''}">
+  <label class="f">Your Eternal Life (up to 3 goals)</label>
+  ${[0,1,2].map(i=>`<input type="text" class="goal" style="margin-bottom:8px" placeholder="Goal ${i+1}" value="${esc(S.goals[i]||'')}">`).join('')}
+  <h2 class="sec">Daily tasks</h2>
+  <p class="muted" style="margin-top:0">The weight decides how much essence each task gives. The path decides which Dao mark it leaves.</p>
+  <div id="tl">${S.tasks.map(t=>`<div class="trow" data-id="${t.id}"><input type="text" class="tn" value="${esc(t.name)}" aria-label="Task name">
+    <select class="tp" aria-label="Dao path">${Object.keys(PATHS).map(k=>`<option value="${k}" ${t.p===k?'selected':''}>${PATHS[k].n}</option>`).join('')}</select>
+    <input type="number" class="tw" min="1" max="10" value="${t.w}" aria-label="Weight"><button class="x" data-a="deltask" data-id="${t.id}" aria-label="Delete task">&times;</button></div>`).join('')}</div>
+  <div class="row"><button class="btn ghost sm" data-a="addtask">Add a task</button><button class="btn sm" data-a="savesect">Save changes</button></div>
+  <h2 class="sec">Backup</h2>
+  <p class="muted" style="margin-top:0">Progress is saved in this browser. Copy this text to keep it safe or move to another device.</p>
+  <textarea id="bk" style="min-height:90px">${esc(JSON.stringify(S))}</textarea>
+  <div class="row"><button class="btn ghost sm" data-a="restore">Restore from text</button><button class="btn warn sm" data-a="reset">Reset everything</button></div>
+  <p class="fine">An unofficial fan project inspired by the web novel Reverend Insanity by Gu Zhen Ren. Not affiliated with the author or publishers.</p>`;
+}
+function vIntro(){
+  return `<div class="intro"><div class="glyph">蛊真人</div>
+  <h1>Winter Arc<br>The Gu Master's 90 Days</h1>
+  <p>In the Gu World, a young person's Aperture Opening Ceremony decides everything. Today yours begins. For ninety days you will gather primeval essence, feed your Gu, break your aperture walls and climb from Rank One to the summit. Regret nothing. Waste nothing.</p>
+  <label class="f" for="iname">Your name</label><input type="text" id="iname" placeholder="Gu Master name">
+  <label class="f" for="istart">Day 1 of your arc</label><input type="date" id="istart" value="${todayStr()}">
+  <label class="f">Your Eternal Life: what must be true after 90 days?</label>
+  ${[0,1,2].map(i=>`<input type="text" class="igoal" style="margin-bottom:8px" placeholder="Goal ${i+1}">`).join('')}
+  <label class="f">Aptitude test: choose your grade</label>
+  <div class="choices">${Object.keys(APT).map(k=>`<button class="choice ${draft.apt===k?'sel':''}" data-a="pick" data-k="apt" data-v="${k}"><b>${APT[k].n}</b><span>${APT[k].d}</span></button>`).join('')}</div>
+  <label class="f">Choose your vital Gu (it stays with you for life)</label>
+  <div class="choices">${Object.keys(VITAL).map(k=>`<button class="choice ${draft.vital===k?'sel':''}" data-a="pick" data-k="vital" data-v="${k}"><b>${VITAL[k].n}</b><span>${VITAL[k].d}</span></button>`).join('')}</div>
+  <p class="muted" style="margin-top:14px">Your Spring Autumn Cicada is already bound to you. It can rewind time and reopen a missed day.</p>
+  <div class="row"><button class="btn" data-a="begin">Open the aperture</button></div>
+  <p class="fine">An unofficial fan project inspired by Reverend Insanity by Gu Zhen Ren.</p></div>`;
+}
+function render(){
+  const app=$('#app');
+  if(!S.start){app.innerHTML=vIntro();return;}
+  const views={today:vToday,path:vPath,dao:vDao,days:vDays,sect:vSect};
+  const y=window.scrollY;
+  const tabs=[['today','Today'],['path','Path'],['dao','Dao'],['days','Days'],['sect','Sect']];
+  app.innerHTML=views[tab]()+`<nav class="nav"><div>${tabs.map(([k,l])=>`<button class="${tab===k?'on':''}" data-a="tab" data-t="${k}">${l}</button>`).join('')}</div></nav>`;
+  if(tab==='today'||tab==='sect') window.scrollTo(0,y);
+}
+function openDay(n){
+  const d=dateOfDay(n), ed=editable(d), dn=dayNum(), pc=S.pct[d]||0;
+  let extra='';
+  if(n<dn&&!ed){
+    extra=pc>=100?`<p class="muted">A perfect day. Nothing to fix.</p>`:
+     S.cicada>0?`<div class="row"><button class="btn gold sm" data-a="cicada" data-d="${d}">Use Spring Autumn Cicada (${S.cicada} left)</button></div><p class="muted">Rewinds time so you can complete this day. It cannot be undone.</p>`
+     :`<p class="muted">No Cicada remains. Earn stones to refine another.</p>`;
+  } else if(n>dn) extra=`<p class="muted">This day has not arrived yet.</p>`;
+  $('#sheetHost').innerHTML=`<div class="sheet" data-a="closesheet"><div>
+   <h2 style="font-size:25px">Day ${n} <span class="muted">${d}</span></h2>
+   <p class="muted" style="margin-top:2px">${pc}% gathered &middot; ${S.score[d]||0} essence${S.unlocked[d]?' &middot; rewound by Cicada':''}</p>
+   ${taskList(d)}
+   ${S.notes[d]||ed?`<textarea class="jnote" data-d="${d}" placeholder="Record of the day" ${ed?'':'disabled'}>${esc(S.notes[d]||'')}</textarea>`:''}
+   ${extra}<div class="row"><button class="btn ghost sm" data-a="closesheet2">Close</button></div></div></div>`;
+}
+function breakthrough(before,after,ascended){
+  const iA=info(after), iB=info(before), c=iA.R.c;
+  let h,s,p;
+  if(ascended){h='Eternal Life';s='The Chaos Tribulation is behind you';p='You stand where only Venerables have stood. Now write your next arc.';}
+  else if(iA.r>iB.r){
+    h=iA.r===6?'Immortal Ascension':`Rank ${iA.r} Breakthrough`;
+    s=iA.title; p=iA.R.lore;
+  } else {h='Breakthrough';s=iA.title;p=STAGE_LORE[iA.si];}
+  const host=$('#ovHost');
+  host.innerHTML=`<div class="ov" style="--essence:${c}"><div class="ring"></div><div class="ring b"></div><div class="ovt"><div class="ovh">${esc(h)}</div><div class="ovs">${esc(s)}</div><p>${esc(p)}</p><button class="btn" data-a="closeov">Continue</button></div></div>`;
+}
+
+/* =====================  EVENTS  ===================== */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-a]'); if(!b) return;
+  const a=b.dataset.a;
+  if(a==='closesheet'&&e.target!==b) return;
+  if(a==='tab'){tab=b.dataset.t;render();window.scrollTo(0,0);}
+  else if(a==='pick'){
+    draft[b.dataset.k]=b.dataset.v;
+    document.querySelectorAll(`.choice[data-k="${b.dataset.k}"]`).forEach(x=>x.classList.toggle('sel',x===b));
+  }
+  else if(a==='toggle'){
+    const d=b.dataset.d,id=b.dataset.id; if(!editable(d)) return;
+    const before=levelNow().lv;
+    const arr=S.done[d]||(S.done[d]=[]);
+    const ix=arr.indexOf(id); ix>=0?arr.splice(ix,1):arr.push(id);
+    recalc(d); save();
+    const after=levelNow().lv;
+    if(after>before) breakthrough(before,after,false);
+    else if(after<before) toast(`Essence lost. Level ${after}.`);
+    else if(S.pct[d]===100) toast('A perfect day. The primeval sea overflows.');
+    render(); if($('.sheet')) openDay(dayNumOf(d));
+  }
+  else if(a==='day') openDay(+b.dataset.n);
+  else if(a==='closesheet'||a==='closesheet2'){$('#sheetHost').innerHTML='';render();}
+  else if(a==='closeov'){$('#ovHost').innerHTML='';render();}
+  else if(a==='cicada'){
+    const d=b.dataset.d; if(S.cicada<1) return;
+    S.cicada--; S.unlocked[d]=true; save(); toast('The Spring Autumn Cicada sings. Time rewinds.');
+    openDay(dayNumOf(d)); render();
+  }
+  else if(a==='buycic'){
+    if(S.cicada<CICADA_MAX&&stones()>=CICADA_COST){S.spent+=CICADA_COST;S.cicada++;save();toast('Another Spring Autumn Cicada is refined.');render();}
+  }
+  else if(a==='trib'){
+    const r=+b.dataset.r, before=levelNow().lv; S.tribs[r]=true; save();
+    const after=levelNow().lv;
+    if(r===9) breakthrough(before,after,true); else if(after>before) breakthrough(before,after,false); else toast('Tribulation survived.');
+    render();
+  }
+  else if(a==='begin'){
+    S.name=$('#iname').value.trim(); S.start=$('#istart').value||todayStr();
+    S.goals=[...document.querySelectorAll('.igoal')].map(i=>i.value.trim());
+    S.apt=draft.apt; S.vital=draft.vital; S.cicada=APT[S.apt].cic;
+    save(); tab='today'; render(); window.scrollTo(0,0);
+  }
+  else if(a==='addtask'){collectTasks();S.tasks.push({id:'t'+Date.now(),name:'New task',w:2,p:'wisdom'});render();}
+  else if(a==='deltask'){collectTasks();S.tasks=S.tasks.filter(t=>t.id!==b.dataset.id);render();}
+  else if(a==='savesect'){
+    collectTasks();
+    S.name=$('#fname').value.trim();
+    const ns=$('#fstart').value; if(ns) S.start=ns;
+    S.goals=[...document.querySelectorAll('.goal')].map(i=>i.value.trim());
+    Object.keys(S.done).forEach(recalc);
+    save(); toast('Sect records updated.'); render();
+  }
+  else if(a==='restore'){
+    try{const o=JSON.parse($('#bk').value); if(!o.start||!o.tasks) throw 0; S=Object.assign(defaults(),o); Object.keys(S.done).forEach(recalc); save(); toast('Progress restored.'); render();}
+    catch(err){toast('That backup text is not valid.');}
+  }
+  else if(a==='reset'){
+    if(confirm('Erase all progress and start over?')){S=defaults();save();tab='today';draft={apt:'C',vital:'liquor'};render();}
+  }
+});
+document.addEventListener('change',e=>{
+  const t=e.target.closest('.jnote'); if(!t) return;
+  S.notes[t.dataset.d]=t.value; save();
+});
+function collectTasks(){
+  const rows=[...document.querySelectorAll('#tl .trow')];
+  if(!rows.length) return;
+  S.tasks=rows.map(r=>({id:r.dataset.id,name:r.querySelector('.tn').value.trim()||'Task',p:r.querySelector('.tp').value,w:Math.max(1,Math.min(10,+r.querySelector('.tw').value||1))}));
+}
+render();
+</script>
+</body>
+</html>
